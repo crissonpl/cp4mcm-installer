@@ -14,8 +14,8 @@ function cssstatus {
         echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
         echo "Waiting for installation to complete.. retry ($time of 60)(Pods remaining = $WC)"
         echo ""
-        oc get css | grep -v "Running" 
-        
+        oc get css | grep -v "Running"
+
         if [ $WC -le 0 ]; then
             break
         fi
@@ -58,7 +58,7 @@ function status {
         echo "Waiting for pods to start.. retry ($time of 60)(Pods remaining = $WC)(Consecutive tries $COUNT/3)"
         echo ""
         oc get po -A | grep -v 'Running\|Completed' | grep 'kube-system\|ibm-common-services\|management-infrastructure-management\|management-monitoring\|management-operations\|management-security-services'
-        
+
         if [ $WC -le 0 ]; then
             ((COUNT++))
 
@@ -103,7 +103,7 @@ function progress-bar {
   local duration
   local columns
   local space_available
-  local fit_to_screen  
+  local fit_to_screen
   local space_reserved
 
   space_reserved=6   # reserved width for the percentage value
@@ -111,11 +111,11 @@ function progress-bar {
   columns=$(tput cols)
   space_available=$(( columns-space_reserved ))
 
-  if (( duration < space_available )); then 
-  	fit_to_screen=1; 
-  else 
-    fit_to_screen=$(( duration / space_available )); 
-    fit_to_screen=$((fit_to_screen+1)); 
+  if (( duration < space_available )); then
+  	fit_to_screen=1;
+  else
+    fit_to_screen=$(( duration / space_available ));
+    fit_to_screen=$((fit_to_screen+1));
   fi
 
   already_done() { for ((done=0; done<(elapsed / fit_to_screen) ; done=done+1 )); do printf "▇"; done }
@@ -179,7 +179,7 @@ function detect_storage_classes {
         fi
     else
         echo "Storage classes provided. We will use the one you provided."
-        ROKS="false"
+        ROKS="true"
         CUSTOM_STORAGE="true"
         CP4MCM_FILE_GID_STORAGECLASS=$CP4MCM_FILE_STORAGECLASS
     fi
